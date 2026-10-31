@@ -21,7 +21,11 @@ describe "Rutinas" {
   }
 
 }
-
+describe "Persona" {
+  test "calamardo corre en la playa" {
+    const calamardo =
+  }
+}
 //Punto 2: personas
 	//const calamardo = //Una persona Sedentaria con peso 60 y tiempo de ejercicio 5
  	//const bob =  // Una persona atleta con peso 40 

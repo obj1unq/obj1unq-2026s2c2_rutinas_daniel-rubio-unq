@@ -6,8 +6,8 @@ class Rutina {
 }
 
 class Running inherits Rutina {
-  const property intensidad
-  override method intensidad() = intensidad
+  var property intensidad
+
   override method descanso(tiempo) = if (tiempo > 20) 5 else 2
 }
 
@@ -24,3 +24,54 @@ class RemoDeCompeticion inherits Remo {
   override method intensidad() = 1.7
   override method descanso(tiempo) = (super(tiempo) - 3).max(2)
 }
+
+class Persona{
+ 
+  var property peso
+  method tiempoRutina()
+
+  method caloriasPorKilo()
+  method pesoPerdido(rutina) = rutina.caloriasQuemadas(self.tiempoRutina())/ self.caloriasPorKilo() 
+
+method puedeHacer(rutina) 
+
+ 
+
+method validarHacerRutina(rutina){
+  
+}
+method hacerRutina(rutina) {
+    if (!self.puedeHacer(rutina)) = self.error  "La persona no puede hacer esta rutina"
+    peso -= self.pesoPerdido(rutina)
+  }
+
+
+}
+
+ 
+class PersonaSedentaria inherits Persona {
+  
+  var property tiempoRutina =  0
+
+override method caloriasPorKilo() = 7000 
+override method puedeHacer() = peso > 50  
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
