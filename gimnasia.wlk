@@ -31,39 +31,75 @@ class Persona{
   method tiempoRutina()
 
   method caloriasPorKilo()
-  method pesoPerdido(rutina) = rutina.caloriasQuemadas(self.tiempoRutina())/ self.caloriasPorKilo() 
+  //method pesoPerdido(rutina) = rutina.caloriasQuemadas(self.tiempoRutina())/ self.caloriasPorKilo() 
 
 method puedeHacer(rutina) 
 
- 
-
 method validarHacerRutina(rutina){
-  
+ 
 }
 method hacerRutina(rutina) {
-    if (!self.puedeHacer(rutina)) = self.error  "La persona no puede hacer esta rutina"
-    peso -= self.pesoPerdido(rutina)
+    if (!self.puedeHacer(rutina)) {
+      self.error  ("La persona no puede hacer esta rutina")
+    }else{peso -= self.pesoPerdido(rutina)
   }
-
-
 }
 
- 
-class PersonaSedentaria inherits Persona {
-  
-  var property tiempoRutina =  0
+// punto 3
 
-override method caloriasPorKilo() = 7000 
-override method puedeHacer() = peso > 50  
+  method caloriasQueQuemaria(rutina) =
+    rutina.caloriasQuemadas(self.tiempoRutina())
+
+  method pesoPerdido(rutina) =
+    self.caloriasQueQuemaria(rutina) / self.caloriasPorKilo()
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// punto 2
+
+ class PersonaSedentaria inherits Persona {
+  const property tiempoRutina
+
+  override method caloriasPorKilo() = 7000
+  override method puedeHacer(rutina) = peso > 50
 }
 
+class PersonaAtleta inherits Persona {
+  override method tiempoRutina() = 90
+  override method caloriasPorKilo() = 8000
 
+  override method puedeHacer(rutina) =
+    rutina.caloriasQuemadas(self.tiempoRutina()) > 10000
 
+  override method pesoPerdido(rutina) = super(rutina) - 1
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+class Predio {
+  const property rutinas
 
+  method caloriasQueQuemaria(persona) =
+    rutinas.sum({ rutina => persona.caloriasQueQuemaria(rutina) })
 
+  method esTranqui(persona) =
+    rutinas.any({ rutina => persona.caloriasQueQuemaria(rutina) < 500 })
 
+  method rutinaMasExigente(persona) =
+    rutinas.max({ rutina => persona.caloriasQueQuemaria(rutina) })
+}
 
+class Club {
+  const property predios
+
+  method mejorPredio(persona) =
+    predios.max({ predio => predio.caloriasQueQuemaria(persona) })
+
+  method prediosTranquis(persona) =
+    predios.filter({ predio => predio.esTranqui(persona) }).asSet()
+
+  method rutinasMasExigentes(persona) =
+    predios.map({ predio => predio.rutinaMasExigente(persona) }).asSet()
+}
 
 
 
