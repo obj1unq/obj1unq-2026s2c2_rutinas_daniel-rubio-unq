@@ -28,22 +28,23 @@ class RemoDeCompeticion inherits Remo {
 class Persona{
  
   var property peso
+
   method tiempoRutina()
 
   method caloriasPorKilo()
-  //method pesoPerdido(rutina) = rutina.caloriasQuemadas(self.tiempoRutina())/ self.caloriasPorKilo() 
-
-method puedeHacer(rutina) 
-
-method validarHacerRutina(rutina){
  
-}
-method hacerRutina(rutina) {
+  method puedeHacer(rutina) 
+
+  method validarHacerRutina(rutina) {
     if (!self.puedeHacer(rutina)) {
-      self.error  ("La persona no puede hacer esta rutina")
-    }else{peso -= self.pesoPerdido(rutina)
+      self.error("La persona no puede hacer esta rutina")
+    }
   }
-}
+
+  method hacerRutina(rutina) {
+    self.validarHacerRutina(rutina)
+    peso -= self.pesoPerdido(rutina)
+  }
 
 // punto 3
 
